@@ -5,7 +5,8 @@ const heroes = [
     damage: 5,
     health: 100,
     gold: 0,
-    maxHealth: 100
+    maxHealth: 100,
+    isDead: false
   },
   {
     name: 'Flint Ironstag',
@@ -13,7 +14,8 @@ const heroes = [
     damage: 10,
     health: 50,
     gold: 0,
-    maxHealth: 50
+    maxHealth: 50,
+    isDead: false
   }
 ]
 
@@ -45,7 +47,7 @@ function bossAttack() {
   heroes.forEach(h => {
     h.health -= 5
     console.log(h.health)
-  })
+  }) 
 }
 
 // NOTE Boss levels Up
@@ -61,6 +63,7 @@ function levelUpBoss() {
     boss.maxHealth += 10
     boss.health = boss.maxHealth
   }
+  // @ts-ignore
   document.getElementById('stanLvl').innerText = boss.level 
 }
 
@@ -88,10 +91,13 @@ function healthPotion() {
 function drawHealth() {
   heroes.forEach(heroes => {
     // @ts-ignore
-    document.getElementById(`${heroes.name}`).innerHTML =
-      `<p class="fs-1">HP: ${heroes.health}</p>`
+    document.getElementById(`heroHP`).innerHTML = heroes.health
+  `HP:<span id="heroHP">100</span>`
   })
+  bossAttack()
 }
+
+
 
 "Slate Sabrok-health"
 "Flint Ironstag-health"
@@ -108,4 +114,4 @@ function drawHealth() {
 // drawHealth()
 
 // FIXME Remember to uncomment this for the boss to actually hurt heroes
-// setInterval(bossAttack, 2000)
+setInterval(bossAttack, 2000)
